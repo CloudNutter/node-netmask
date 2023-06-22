@@ -125,6 +125,10 @@ class Netmask
         @mask = long2ip(@maskLong)
         # The host mask, the opposite of the netmask (eg.: 0.0.0.255)
         @hostmask = long2ip(~@maskLong)
+        # The absolute lowest address of the block
+        @lowest = if @bitmask <= 30 then long2ip(@netLong) else @base
+        # The absolute highest address of the block
+        @highest = if @bitmask <= 30 then long2ip(@netLong + @size - 1) else long2ip(@netLong + @size)
         # The first usable address of the block
         @first = if @bitmask <= 30 then long2ip(@netLong + 1) else @base
         # The last  usable address of the block
